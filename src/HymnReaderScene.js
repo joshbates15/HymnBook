@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Text, TouchableHighlight, ScrollView, View } from 'react-native';
-import hymnData from './src/hymns.json';
-import Style from './Style';
+import hymnData from './hymns.json';
+//import Style from './Style';
 
-export default class HymnRenderScene extends Component {
+export default class HymnReaderScene extends Component {
   constructor(props) {
     super(props);
-    this.state {
+    this.state = {
       id: 1,
     }
   }
   render() {
     var hymnNumberData = this.getHymnByNumber(this.props.route.hymn);
     return (
-      <View style={styles.container}>
-        <View style={styles.topsies}>
+      <View style={{flex: 1}}>
+        <View style={{flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'lightgrey'}}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <View style={{flex: 3, alignItems: 'center', justifyContent: 'center'}}>
               <TouchableHighlight style={{margin: 10, padding: 20, borderWidth: 1, borderColor: 'darkgreen'}} underlayColor='darkgreen' onPress={ () => this.props.navigator.pop()}>
@@ -22,15 +22,15 @@ export default class HymnRenderScene extends Component {
               </TouchableHighlight>
             </View>
             <View style={{flex: 7}}>
-              <Text style={styles.hymnNum}>
+              <Text style={{fontSize: 60, fontWeight: 'bold', textAlign: 'center', margin: 15, color: 'darkgreen'}}>
                 {hymnNumberData[0].hymn}
               </Text>
             </View>
           </View>
         </View>
-        <View style={styles.bodies}>
+        <View style={{flex: 8, padding: 30, backgroundColor: 'white'}}>
           <ScrollView style={{flex: 1}}>
-            <Text style={styles.section}>
+            <Text style={{textAlign: 'left', color: '#555555', marginBottom: 20, fontSize: 12}}>
               {hymnNumberData[0].section}
             </Text>
             {this.renderHymnVerses()}
@@ -45,7 +45,7 @@ export default class HymnRenderScene extends Component {
     for (var r = 0; r < hymnNumberData[0].verses.length; r ++) {
       let verseNum = hymnNumberData[0].verses[r].verse;
       let verseText = hymnNumberData[0].verses[r].text;
-      views.push(<Text style={styles.verses}>{verseNum}. {verseText}</Text>)
+      views.push(<Text style={{textAlign: 'left', color: '#333333', marginBottom: 10, fontSize: 16}}>{verseNum}. {verseText}</Text>)
     }
     return views;
   }

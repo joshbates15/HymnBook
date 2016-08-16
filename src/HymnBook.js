@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, Navigator } from 'react-native';
 import NumberInputScene from './NumberInputScene';
-import HymnRenderScene from './HymnRenderScene';
+import HymnReaderScene from './HymnReaderScene';
 
 class HymnBook extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class HymnBook extends Component {
       case 0:
         return(<NumberInputScene navigator={navigator} route={route} title='Home' />);
       case 1:
-        return (<HymnRenderScene navigator={navigator} route={route} title='Hymn' />);
+        return (<HymnReaderScene navigator={navigator} route={route} title='Hymn' />);
     }
   }
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text } from 'react-native';
-import Style from './Style';
+//import myStyle from './Style';
 import InputButton from './InputButton';
 
 //Define the input buttons that will display.
@@ -8,7 +8,7 @@ const inputButtons = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9],
-  ['<< CLEAR', 'ENTER >>']
+  ['CLEAR', 0, 'ENTER']
 ];
 
 export default class NumberInputScene extends Component {
@@ -23,11 +23,11 @@ export default class NumberInputScene extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.displayText}>{this.state.inputValue}</Text>
+      <View style={{flex: 1}}>
+        <View style={{flex: 2, backgroundColor: '#193441', borderWidth: 5, borderColor: 'grey'}}>
+          <Text style={{color: 'white', fontSize: 38, fontWeight: 'bold', textAlign: 'right', padding: 20}}>{this.state.inputValue}</Text>
         </View>
-        <View style={styles.numberContainer}>
+        <View style={{flex: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: '#3E606F'}}>
           {this.createInputButtons()}
         </View>
       </View>
@@ -48,7 +48,7 @@ export default class NumberInputScene extends Component {
                        onPress={this.pressedInputButton.bind(this, input)}/>
         );
       }
-      views.push(<View style={styles.inputRow}>{inputRow}</View>)
+      views.push(<View style={{flex: 1, flexDirection: 'row'}}>{inputRow}</View>);
     }
     return views;
   }
@@ -72,15 +72,16 @@ export default class NumberInputScene extends Component {
 
   setStringInput(str) {
     switch (str) {
-      case '<< CLEAR':
-        this.setState({inputValue: 0,selectedSymbol: null});
+      case 'CLEAR':
+        this.setState({inputValue: 0, selectedSymbol: null});
         break;
-      case 'ENTER >>':
+      case 'ENTER':
         //alert(this.state.inputValue);
-        this.setState({selectedSymbol: null});
         // Need to figure out the best way to do this. It get's inputted through the InputButton that is pushed.
         // The hymn value should be grabbed with this.props.route.hymn in the Hymn Scene.
-        return () => this.props.navigator.push({id: 1, hymn: this.state.inputValue});
+        var chosenHymn = this.state.inputValue;
+        this.setState({inputValue: 0, selectedSymbol: null});
+        return this.props.navigator.push({id: 1, hymn: chosenHymn});
         break;
     }
   }
